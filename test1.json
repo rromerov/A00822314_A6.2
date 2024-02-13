@@ -1,17 +1,20 @@
-{
-    "name": "St. George Hotel",
-    "location": "Tucson Arizona",
-    "rooms": {
-        "single": 1,
-        "double": 5,
-        "suite": 3
-    },
-    "reservations": [
-        {
-            "id": 2,
-            "full_name": "Jane Doe",
-            "room_type": "single",
-            "date": "2021-12-25"
-        }
-    ]
-}
+[
+    {
+        "hotel_id": 2,
+        "name": "St. Saint Patrick",
+        "location": "Tucson Arizona",
+        "rooms": {
+            "single": 2,
+            "double": 5,
+            "suite": 2
+        },
+        "reservations": [
+            {
+                "id": 1,
+                "client_name": "John Doe",
+                "room_type": "suite",
+                "date": "2021-12-24"
+            }
+        ]
+    }
+]

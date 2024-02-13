@@ -1,0 +1,13 @@
+# from hotel import Hotel
+
+# print(Hotel('test1').create_hotel('St. George Hotel', 'Tucson Arizona', {'single': 2, 'double': 5, 'suite': 3}))
+# print(Hotel('test1').create_hotel('St. Saint Patrick', 'Tucson Arizona', {'single': 2, 'double': 5, 'suite': 3}))
+
+# print(Hotel('test1').modify_hotel_info('St. George Hotel',new_name='St. James Hotel', new_location='San Antonio Texas'))
+# print(Hotel('test1').display_hotel_info('St. James Hotel'))
+
+# print(Hotel('test1').delete_hotel('St. James Hotel'))
+# print(Hotel('test1').reserve_room('St. Saint Patrick','John Doe', reservation_date='2021-12-24', room_type= 'suite'))
+# print(Hotel('test1').reserve_room('St. Saint Patrick','Jane Doe', reservation_date='2021-12-25'))
+
+# print(Hotel('test1').cancel_reservation('St. Saint Patrick','Jane Doe'))
