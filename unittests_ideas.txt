@@ -1,0 +1,17 @@
+from hotel import Hotel
+
+print(Hotel('test1').create_hotel('St. George Hotel', 'Tucson Arizona', {'single': 2, 'double': 5, 'suite': 3}))
+
+print(Hotel('test1').modify_hotel_info(name='St. James Hotel', location='San Antonio Texas'))
+
+print(Hotel('test1').modify_hotel_info(location='San Antonio Texas'))
+
+print(Hotel('test1').modify_hotel_info(name='St. James Hotel'))
+
+print(Hotel('test1').display_hotel_info())
+
+print(Hotel('test').delete_hotel())
+
+print(Hotel('test1').reserve_room('John Doe', reservation_date='2021-12-24', room_type= 'single'))
+print(Hotel('test1').reserve_room('Jane Doe', reservation_date='2021-12-25', room_type= 'single'))
+print(Hotel('test1').cancel_reservation(1))

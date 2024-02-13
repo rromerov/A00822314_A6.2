@@ -1,0 +1,17 @@
+{
+    "name": "St. George Hotel",
+    "location": "Tucson Arizona",
+    "rooms": {
+        "single": 1,
+        "double": 5,
+        "suite": 3
+    },
+    "reservations": [
+        {
+            "id": 2,
+            "full_name": "Jane Doe",
+            "room_type": "single",
+            "date": "2021-12-25"
+        }
+    ]
+}
