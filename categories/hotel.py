@@ -1,7 +1,6 @@
 import json
 import os
 
-
 class Hotel:
     reservation_counter = 0
 
@@ -19,13 +18,33 @@ class Hotel:
 
         hotel_id = len(hotels_data) + 1
         hotel_info = {'hotel_id': hotel_id, 'name': name, 'location': location,
-                      'rooms': rooms, 'reservations': []}
+                      'rooms': rooms, 'reservations': [], 'customers': []}
         hotels_data.append(hotel_info)
 
         with open(self.filename, 'w', encoding='UTF-8') as file:
             json.dump(hotels_data, file, indent=4)
 
         return 'Hotel created'
+
+    def get_customer_id(self, hotel_name: str, customer_name: str):
+        if os.path.exists(self.filename):
+            with open(self.filename, 'r', encoding='UTF-8') as file:
+                hotels_data = json.load(file)
+                for hotel in hotels_data:
+                    if hotel['name'] == hotel_name:
+                        customers = hotel['customers']
+                        for customer in customers:
+                            if customer['customer_name'] == customer_name:
+                                return customer['customer_id']
+                        customer_id = len(customers) + 1
+                        customers.append({'customer_id': customer_id,
+                                          'customer_name': customer_name})
+                        with open(self.filename, 'w',
+                                  encoding='UTF-8') as file:
+                            json.dump(hotels_data, file, indent=4)
+                        return customer_id
+                return None
+        return None
 
     def delete_hotel(self, hotel_name: str):
         if os.path.exists(self.filename):
@@ -73,7 +92,7 @@ class Hotel:
             return f'{hotel_name} not found'
         return 'Hotel information not found, please verify the file name'
 
-    def reserve_room(self, hotel_name: int, client_name: str,
+    def reserve_room(self, hotel_name: int, customer_name: str,
                      reservation_date: str, room_type: str = 'single'):
         if os.path.exists(self.filename):
             with open(self.filename, 'r', encoding='UTF-8') as file:
@@ -82,6 +101,10 @@ class Hotel:
             hotel_found = False
             for hotel in hotels_data:
                 if hotel['name'] == hotel_name:
+                    customer_id = self.get_customer_id(hotel_name,
+                                                       customer_name)
+                    if customer_id is None:
+                        return 'Customer not found or could not be created'
                     if room_type in hotel['rooms']:
                         if hotel['rooms'][room_type] > 0:
                             self.__class__.reservation_counter += 1
@@ -89,7 +112,8 @@ class Hotel:
                             hotel['rooms'][room_type] -= 1
                             hotel['reservations'].append({
                                 'id': reservation_id,
-                                'client_name': client_name,
+                                'customer_id': customer_id,
+                                'customer_name': customer_name,
                                 'room_type': room_type,
                                 'date': reservation_date})
                             hotel_found = True
@@ -104,24 +128,22 @@ class Hotel:
             return f'{hotel_name} not found.'
         return 'Hotel information not found, please verify'
 
-    def cancel_reservation(self, hotel_name: str, client_name: str):
+    def cancel_reservation(self, hotel_name: str, customer_name: str):
         if os.path.exists(self.filename):
             with open(self.filename, 'r', encoding='UTF-8') as file:
                 hotels_data = json.load(file)
 
-            hotel_found = False
             for hotel in hotels_data:
                 if hotel['name'] == hotel_name:
                     for reservation in hotel['reservations']:
-                        if reservation['client_name'] == client_name:
-                            hotel['rooms'][reservation['room_type']] += 1
+                        if reservation['customer_name'] == customer_name:
+                            room_type = reservation['room_type']
+                            hotel['rooms'][room_type] += 1
                             hotel['reservations'].remove(reservation)
-                            hotel_found = True
-                            break
-
-            if hotel_found:
-                with open(self.filename, 'w', encoding='UTF-8') as file:
-                    json.dump(hotels_data, file, indent=4)
-                return f'Reservation for {client_name} cancelled'
-            return f'Reservation for {client_name} not found'
+                            with open(self.filename, 'w',
+                                      encoding='UTF-8') as file:
+                                json.dump(hotels_data, file, indent=4)
+                            return 'Reservation canceled for ${customer_name}'
+                    return f'No reservation found for {customer_name}'
+            return f'Hotel {hotel_name} not found'
         return 'Hotel information not found, please verify'
