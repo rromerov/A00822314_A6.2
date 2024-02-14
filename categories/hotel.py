@@ -137,7 +137,8 @@ class Hotel:
                 for hotel in hotels_data:
                     if hotel['name'] == hotel_name:
                         return hotel
-                return 'Hotel not found'
+            return 'Hotel not found'
+        return 'Hotel information file not found, please verify'
 
     def modify_hotel_info(self, hotel_name: str, new_name: str = '',
                           new_location: str = ''):
