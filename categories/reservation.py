@@ -65,8 +65,8 @@ class Reservation:
             customer_id = customer_info.get('customer_id')
             if customer_id is None:
                 return (
-                    f'Customer {customer_name} not found or could not be' 
-                    'created'
+                    f'Customer {customer_name} not found or could not'
+                    'be created'
                 )
         else:
             return customer_info
@@ -78,7 +78,7 @@ class Reservation:
             if hotel_data['name'] == hotel_name:
                 if room_type in hotel_data['rooms']:
                     if hotel_data['rooms'][room_type] > 0:
-                        reservation_id = hotel_data.get('reservation_counter', 
+                        reservation_id = hotel_data.get('reservation_counter',
                                                         0) + 1
                         hotel_data['reservation_counter'] = reservation_id
                         hotel_data['rooms'][room_type] -= 1
