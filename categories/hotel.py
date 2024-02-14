@@ -1,7 +1,37 @@
+"""
+Module for managing hotel information and reservations.
+
+Uses JSON file for data storage.
+
+Libraries:
+- json: Provides functions for reading and writing JSON data.
+- os: Provides functions for interacting with the operating system.
+"""
+
 import json
 import os
 
+
 class Hotel:
+    """
+    A class to represent a hotel and manage its information and reservations.
+
+    Attributes:
+    - reservation_counter (int): A class attribute to keep track of the
+    reservation count.
+    - filename (str): The filename for storing hotel data in JSON format.
+
+    Methods:
+    - create_hotel: Creates a new hotel entry in the JSON file.
+    - get_customer_id: Retrieves the ID of a customer from the hotel's
+    customer list.
+    - delete_hotel: Deletes a hotel entry from the JSON file.
+    - display_hotel_info: Displays information about a specific hotel.
+    - modify_hotel_info: Modifies information about a specific hotel.
+    - reserve_room: Reserves a room in a specific hotel for a customer.
+    - cancel_reservation: Cancels a reservation for a customer in a specific
+    hotel.
+    """
     reservation_counter = 0
 
     def __init__(self, filename: str = 'hotels.json'):
@@ -10,6 +40,17 @@ class Hotel:
             self.filename += '.json'
 
     def create_hotel(self, name: str, location: str, rooms: dict):
+        """
+        Creates a new hotel entry in the JSON file.
+
+        Parameters:
+        - name: The name of the hotel.
+        - location: The location of the hotel.
+        - rooms: A dictionary containing room types and their quantities.
+
+        Returns:
+        A string indicating the success of the operation.
+        """
         if os.path.exists(self.filename):
             with open(self.filename, 'r', encoding='UTF-8') as file:
                 hotels_data = json.load(file)
@@ -27,6 +68,16 @@ class Hotel:
         return 'Hotel created'
 
     def get_customer_id(self, hotel_name: str, customer_name: str):
+        """
+        Retrieves the ID of a customer from the hotel's customer list.
+
+        Parameters:
+        - hotel_name: The name of the hotel.
+        - customer_name: The name of the customer.
+
+        Returns:
+        The ID of the customer if found, otherwise None.
+        """
         if os.path.exists(self.filename):
             with open(self.filename, 'r', encoding='UTF-8') as file:
                 hotels_data = json.load(file)
@@ -47,6 +98,15 @@ class Hotel:
         return None
 
     def delete_hotel(self, hotel_name: str):
+        """
+        Deletes a hotel entry from the JSON file.
+
+        Parameters:
+        - hotel_name: The name of the hotel to delete.
+
+        Returns:
+        A string indicating the success of the operation.
+        """
         if os.path.exists(self.filename):
             with open(self.filename, 'r', encoding='UTF-8') as file:
                 hotels_data = json.load(file)
@@ -61,6 +121,16 @@ class Hotel:
         return 'Hotel information not found'
 
     def display_hotel_info(self, hotel_name: str):
+        """
+        Displays information about a specific hotel.
+
+        Parameters:
+        - hotel_name: The name of the hotel to display information for.
+
+        Returns:
+        The information of the hotel if found, otherwise a message indicating
+        the hotel was not found.
+        """
         if os.path.exists(self.filename):
             with open(self.filename, 'r', encoding='UTF-8') as file:
                 hotels_data = json.load(file)
@@ -71,6 +141,18 @@ class Hotel:
 
     def modify_hotel_info(self, hotel_name: str, new_name: str = '',
                           new_location: str = ''):
+        """
+        Modifies information about a specific hotel.
+
+        Parameters:
+        - hotel_name: The name of the hotel to modify.
+        - new_name: The new name for the hotel (optional).
+        - new_location: The new location for the hotel (optional).
+
+        Returns:
+        A string indicating the success of the operation or a message if the
+        hotel was not found.
+        """
         if os.path.exists(self.filename):
             with open(self.filename, 'r', encoding='UTF-8') as file:
                 hotels_data = json.load(file)
@@ -94,6 +176,19 @@ class Hotel:
 
     def reserve_room(self, hotel_name: int, customer_name: str,
                      reservation_date: str, room_type: str = 'single'):
+        """
+        Reserves a room in a specific hotel for a customer.
+
+        Parameters:
+        - hotel_name: The name of the hotel to reserve a room in.
+        - customer_name: The name of the customer making the reservation.
+        - reservation_date: The date of the reservation.
+        - room_type: The type of room to reserve (default is 'single').
+
+        Returns:
+        A string indicating the success of the reservation or a message if the
+        room type or hotel was not found.
+        """
         if os.path.exists(self.filename):
             with open(self.filename, 'r', encoding='UTF-8') as file:
                 hotels_data = json.load(file)
@@ -129,6 +224,18 @@ class Hotel:
         return 'Hotel information not found, please verify'
 
     def cancel_reservation(self, hotel_name: str, customer_name: str):
+        """
+        Cancels a reservation for a customer in a specific hotel.
+
+        Parameters:
+        - hotel_name: The name of the hotel where the reservation is made.
+        - customer_name: The name of the customer whose reservation is to be
+        canceled.
+
+        Returns:
+        A string indicating the success of the operation or a message if the
+        reservation or hotel was not found.
+        """
         if os.path.exists(self.filename):
             with open(self.filename, 'r', encoding='UTF-8') as file:
                 hotels_data = json.load(file)
