@@ -220,8 +220,8 @@ class Hotel:
             if hotel_found:
                 with open(self.filename, 'w', encoding='UTF-8') as file:
                     json.dump(hotels_data, file, indent=4)
-                return f'{room_type} room reserved.'
-            return f'{hotel_name} not found.'
+                return f'{room_type} room reserved for {customer_name}'
+            return f'{hotel_name} not found'
         return 'Hotel information not found, please verify'
 
     def cancel_reservation(self, hotel_name: str, customer_name: str):

@@ -124,3 +124,107 @@ class TestHotelInfo(unittest.TestCase):
         self.assertEqual(self.hotel.display_hotel_info('St. Adams Hotel'),
                          'Hotel not found')
         self.teardown_called = True
+
+
+class TestHotelModification(unittest.TestCase):
+    """
+    A class to test the modification of the hotel information.
+    """
+    def setUp(self):
+        """
+        Sets up the test environment by creating an instance of the Hotel
+        class and creating a hotel.
+        """
+        self.hotel = Hotel('hotels.json')
+        self.hotel.create_hotel(
+            'Best Western',
+            'San Antonio Texas',
+            {'single': 10, 'double': 7,
+             'suite': 3})
+        self.teardown_called = False
+
+    def tearDown(self):
+        """
+        Cleans up the test environment by deleting the JSON file if it exists.
+        """
+        if self.teardown_called and os.path.exists('hotels.json'):
+            os.remove('hotels.json')
+
+    def test_modify_hotel(self):
+        """
+        Tests that the modify_hotel method modifies a hotel
+        and the display info is still correct.
+        """
+        self.assertEqual(self.hotel.modify_hotel_info(
+            'Best Western',
+            'Best Western Hotel',
+            'San Antonio, Texas'),
+            'Hotel information modified')
+
+        self.assertEqual(
+            self.hotel.display_hotel_info('Best Western Hotel'),
+            {'hotel_id': 1, 'name': 'Best Western Hotel',
+             'location': 'San Antonio, Texas',
+             'rooms': {'single': 10, 'double': 7, 'suite': 3},
+             'reservations': [], 'customers': []})
+
+    def test_modify_hotel_not_found(self):
+        """
+        Tests the modify_hotel method if the hotel is not found.
+        """
+        self.assertEqual(self.hotel.modify_hotel_info(
+            'St. Adams Hotel',
+            'St. Adams Hotel',
+            'Tucson, Arizona'),
+            'St. Adams Hotel not found')
+        self.teardown_called = True
+
+
+class TestHotelReservation(unittest.TestCase):
+    """
+    A class to test the reservation of a hotel.
+    """
+    def setUp(self):
+        """
+        Sets up the test environment by creating an instance of the Hotel
+        class and creating a hotel.
+        """
+        self.hotel = Hotel('hotels.json')
+        self.hotel.create_hotel(
+            'Best Western',
+            'San Antonio Texas',
+            {'single': 1, 'double': 7,
+             'suite': 3})
+        self.teardown_called = False
+
+    def tearDown(self):
+        """
+        Cleans up the test environment by deleting the JSON file if it exists.
+        """
+        if self.teardown_called and os.path.exists('hotels.json'):
+            os.remove('hotels.json')
+
+    def test_reserve_room(self):
+        """
+        Tests that the reserve_room method reserves a room.
+        """
+        self.assertEqual(self.hotel.reserve_room(
+            hotel_name='Best Western',
+            room_type='single',
+            reservation_date='2019-12-24',
+            customer_name='John Doe'),
+            'single room reserved for John Doe'
+        )
+
+    def test_reserve_room_no_single_available(self):
+        """
+        Test that the reserve_room method returns a message if no single
+        rooms are available.
+        """
+        self.assertEqual(self.hotel.reserve_room(
+            hotel_name='Best Western',
+            room_type='single',
+            reservation_date='2019-12-24',
+            customer_name='Jane Doe'),
+            'No single rooms available'
+        )
