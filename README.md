@@ -7,7 +7,7 @@ Para clonar el repositorio ejecutar:
 git clone https://github.com/rromerov/A00822314_A6.2.git
 ```
 
-Es necesario contar con la librería **virtualenv** instalada, en caso de no tenerla, se puede instalar con el siguiente comando:
+UNa vez clonado el repositorio, dirigirse a la ruta donde se clonó el proyecto, es necesario contar con la librería **virtualenv** instalada, en caso de no tenerla, se puede instalar con el siguiente comando:
 
 ```
 pip install virtualenv
