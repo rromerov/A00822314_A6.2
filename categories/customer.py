@@ -49,20 +49,30 @@ class Customer:
         A string indicating the success of the operation or a message if the
         hotel or customer was not found.
         """
+        # Create a Hotel object
         hotel = Hotel(self.hotel_filename)
+        # Open the hotel data file
         with open(hotel.filename, 'r', encoding='UTF-8') as file:
             hotels_data = json.load(file)
 
+        # Iterate through each hotel in the data
         for hotel_data in hotels_data:
+            # Check if the hotel name matches the specified hotel
             if hotel_data['name'] == hotel_name:
+                # If the hotel is found, retrieve the list of customers
                 customers = hotel_data['customers']
+                # Create a new customer ID
                 customer_id = len(customers) + 1
+                # Append the new customer to the list of customers
                 customers.append({'customer_id': customer_id,
                                   'customer_name': customer_name})
+                # Write the updated hotel data to the file
                 with open(hotel.filename, 'w', encoding='UTF-8') as file:
                     json.dump(hotels_data, file, indent=4)
+                # Return a success message
                 return f'Customer {customer_name} created for {hotel_name}'
 
+        # If the specified hotel is not found, return an error message
         return (
             f'Customer {customer_name} not created. Hotel {hotel_name} '
             'not found'
@@ -80,21 +90,32 @@ class Customer:
         A string indicating the success of the operation or a message if the
         hotel or customer was not found.
         """
+        # Create a Hotel object
         hotel = Hotel(self.hotel_filename)
+
+        # Open the hotel data file
         with open(hotel.filename, 'r', encoding='UTF-8') as file:
             hotels_data = json.load(file)
 
+        # Iterate through each hotel in the data
         for hotel_data in hotels_data:
+            # Check if the current hotel matches the specified hotel name
             if hotel_data['name'] == hotel_name:
+                # If the hotel is found, retrieve the list of customers
                 customers = hotel_data['customers']
+                # Iterate through each customer in the list
                 for customer in customers:
+                    # Check if the current customer matches the specified
                     if customer['customer_name'] == customer_name:
+                        # If the customer is found, remove it from the list
                         customers.remove(customer)
+                        # Write the updated hotel data to the file
                         with open(hotel.filename, 'w',
                                   encoding='UTF-8') as file:
                             json.dump(hotels_data, file, indent=4)
+                        # Return a success message
                         return f'Customer {customer_name} deleted'
-
+        # If the specified hotel or customer is not found, return an error
         return f'Customer {customer_name} not found in {hotel_name}'
 
     def display_customer_info(self, hotel_name: str, customer_name: str):
@@ -109,16 +130,25 @@ class Customer:
         The information of the customer if found, otherwise a message
         indicating the customer was not found in the specified hotel.
         """
+        # Create a Hotel object
         hotel = Hotel(self.hotel_filename)
+        # Open the hotel data file
         with open(hotel.filename, 'r', encoding='UTF-8') as file:
             hotels_data = json.load(file)
 
+        # Iterate through each hotel in the data
         for hotel_data in hotels_data:
+            # Check if the current hotel matches the specified hotel name
             if hotel_data['name'] == hotel_name:
+                # If the hotel is found, retrieve the list of customers
                 customers = hotel_data['customers']
+                # Iterate through each customer in the list
                 for customer in customers:
+                    # Check if the current customer matches the specified
                     if customer['customer_name'] == customer_name:
+                        # If the customer is found, return the customer info
                         return customer
+        # If the specified hotel or customer is not found, return an error
         return f'Customer {customer_name} not found in {hotel_name}'
 
     def modify_customer_info(self, hotel_name: str,
@@ -135,21 +165,31 @@ class Customer:
         A string indicating the success of the operation or a message if the
         hotel or customer was not found.
         """
+        # Create a Hotel object
         hotel = Hotel(self.hotel_filename)
+        # Open the hotel data file
         with open(hotel.filename, 'r', encoding='UTF-8') as file:
             hotels_data = json.load(file)
 
+        # Iterate through each hotel in the data
         for hotel_data in hotels_data:
+            # Check if the current hotel matches the specified hotel name
             if hotel_data['name'] == hotel_name:
+                # If the hotel is found, retrieve the list of customers
                 customers = hotel_data['customers']
+                # Iterate through each customer in the list
                 for customer in customers:
+                    # Check if the current customer matches the specified
                     if customer['customer_name'] == customer_name:
+                        # If the customer is found, update the customer name
                         customer['customer_name'] = new_customer_name
+                        # Write the updated hotel data to the file
                         with open(hotel.filename,
                                   'w', encoding='UTF-8') as file:
                             json.dump(hotels_data, file, indent=4)
+                        # Return a success message
                         return (
                             f'Customer name updated from {customer_name} to '
                             f'{new_customer_name}')
-
+        # If the specified hotel or customer is not found, return an error
         return f'Customer {customer_name} not found in {hotel_name}'
