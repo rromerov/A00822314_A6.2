@@ -63,7 +63,8 @@ class TestCustomer(unittest.TestCase):
         """
         self.assertEqual(self.customer.create_customer(
             'St. Adams Hotel', 'Bob Johnson'),
-            'Customer Bob Johnson not created. Hotel St. Adams Hotel not found')
+            'Customer Bob Johnson not created. '
+            'Hotel St. Adams Hotel not found')
 
     def test_delete_customer(self):
         """

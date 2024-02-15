@@ -94,7 +94,7 @@ class Reservation(JSONDataHandler):
                         hotel_data['reservations'].append(reservation)
                         self.save_data(hotels_data)
                         return (
-                            f'Reservation for {customer_name} created at'
+                            f'Reservation for {customer_name} created at '
                             f'{hotel_name}'
                         )
                     return f'No {room_type} rooms available'
@@ -125,7 +125,7 @@ class Reservation(JSONDataHandler):
                         hotel_data['reservations'].remove(reservation)
                         self.save_data(hotels_data)
                         return (
-                            f'Reservation for {customer_name} cancelled at'
+                            f'Reservation for {customer_name} cancelled at '
                             f'{hotel_name}'
                             )
                 return (
