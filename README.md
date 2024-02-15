@@ -125,3 +125,5 @@ utilities\json_data_handler.py      10      0   100%
 ----------------------------------------------------
 TOTAL                              395     15    96%
 ```
+
+Capturas de ejecución de los comandos en el siguiente [archivo](A00822314_A6.2.pdf).
