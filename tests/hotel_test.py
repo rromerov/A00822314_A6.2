@@ -254,3 +254,77 @@ class TestHotelReservation(unittest.TestCase):
             customer_name='Jane Doe'),
             'St. Adams Hotel not found'
         )
+
+
+class TestHotelCancelReservation(unittest.TestCase):
+    """
+    A class to test canceling a reservation in a hotel.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        """
+        Sets up the test environment by creating an instance of the Hotel
+        class and creating a hotel.
+        """
+        cls.hotel = Hotel('hotels.json')
+        cls.hotel.create_hotel(
+            'Best Western',
+            'San Antonio Texas',
+            {'single': 1, 'double': 7,
+             'suite': 3})
+        cls.hotel.reserve_room(
+            hotel_name='Best Western',
+            room_type='single',
+            reservation_date='2019-12-24',
+            customer_name='John Doe')
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Cleans up the test environment by deleting the JSON file if it exists.
+        """
+        if os.path.exists('hotels.json'):
+            os.remove('hotels.json')
+
+    def setUp(self):
+        """
+        Sets up the test environment.
+        """
+        self.teardown_called = False
+
+    def tearDown(self):
+        """
+        Marks that teardown has been called.
+        """
+        self.teardown_called = True
+
+    def test_cancel_reservation_success(self):
+        """
+        Tests canceling a reservation successfully.
+        """
+        self.assertEqual(self.hotel.cancel_reservation(
+            hotel_name='Best Western',
+            customer_name='John Doe'),
+            'Reservation canceled for John Doe'
+        )
+
+    def test_cancel_reservation_not_found(self):
+        """
+        Tests canceling a reservation that does not exist.
+        """
+        self.assertEqual(self.hotel.cancel_reservation(
+            hotel_name='Best Western',
+            customer_name='Jane Doe'),
+            'No reservation found for Jane Doe'
+        )
+
+    def test_cancel_reservation_hotel_not_found(self):
+        """
+        Tests canceling a reservation in a hotel that does not exist.
+        """
+        self.assertEqual(self.hotel.cancel_reservation(
+            hotel_name='St. Adams Hotel',
+            customer_name='John Doe'),
+            'Hotel St. Adams Hotel not found'
+        )

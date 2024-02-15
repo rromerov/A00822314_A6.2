@@ -251,7 +251,7 @@ class Hotel:
                             with open(self.filename, 'w',
                                       encoding='UTF-8') as file:
                                 json.dump(hotels_data, file, indent=4)
-                            return 'Reservation canceled for ${customer_name}'
+                            return f'Reservation canceled for {customer_name}'
                     return f'No reservation found for {customer_name}'
             return f'Hotel {hotel_name} not found'
         return 'Hotel information not found, please verify'
