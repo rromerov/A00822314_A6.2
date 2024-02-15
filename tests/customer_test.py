@@ -78,8 +78,8 @@ class TestCustomer(unittest.TestCase):
         Tests deleting a customer that does not exist.
         """
         self.assertEqual(self.customer.delete_customer(
-            'Best Western', 'Unknown Person'),
-            'Customer Unknown Person not found in Best Western')
+            'Best Western', 'Juan Perez'),
+            'Customer Juan Perez not found in Best Western')
 
     def test_display_customer_info(self):
         """
@@ -94,8 +94,8 @@ class TestCustomer(unittest.TestCase):
         Tests displaying information of a customer that does not exist.
         """
         self.assertEqual(self.customer.display_customer_info(
-            'Best Western', 'Unknown Person'),
-            'Customer Unknown Person not found in Best Western')
+            'Best Western', 'Juan Perez'),
+            'Customer Juan Perez not found in Best Western')
 
     def test_modify_customer_info(self):
         """
@@ -110,5 +110,5 @@ class TestCustomer(unittest.TestCase):
         Tests modifying information of a customer that does not exist.
         """
         self.assertEqual(self.customer.modify_customer_info(
-            'Best Western', 'Unknown Person', 'New Name'),
-            'Customer Unknown Person not found in Best Western')
+            'Best Western', 'Juan Perez', 'John Smith'),
+            'Customer Juan Perez not found in Best Western')
