@@ -63,7 +63,10 @@ class Customer:
                     json.dump(hotels_data, file, indent=4)
                 return f'Customer {customer_name} created for {hotel_name}'
 
-        return f'Hotel {hotel_name} not found'
+        return (
+            f'Customer {customer_name} not created. Hotel {hotel_name} '
+            'not found'
+            )
 
     def delete_customer(self, hotel_name: str, customer_name: str):
         """
